@@ -26,7 +26,8 @@ namespace RP_PELICULAS__Ejercicio3_.Pages.Peliculas
         public SelectList genero { get; set; } //lista con géneros
 
         [BindProperty(SupportsGet = true)]
-        public string MovieGenero { get; set; } //va a ser el valor que elija el usuario al seleccionar un género de la lista.
+        public string generoPelicula { get; set; } //va a ser el valor que elija el usuario al seleccionar un género de la lista.
+     
 
         public async Task OnGetAsync()
         {
@@ -36,11 +37,18 @@ namespace RP_PELICULAS__Ejercicio3_.Pages.Peliculas
             
             if (!string.IsNullOrEmpty(searchstring))
             {
-
                 peliculas = peliculas.Where(S => S.Titulo.Contains(searchstring));
+            }
+            IQueryable<string> generoQuery = from m in _context.Pelicula
+                                             orderby m.Genero
+                                             select m.Genero;
 
+            if (!string.IsNullOrEmpty(generoPelicula))
+            {
+                peliculas = peliculas.Where(s => s.Genero == generoPelicula);
             }
 
+            genero = new SelectList(await generoQuery.Distinct().ToListAsync());
             Pelicula = await peliculas.ToListAsync();
         }
     }

@@ -2,22 +2,29 @@
 @model RP_PELICULAS__Ejercicio3_.Pages.Peliculas.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Películas";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Películas</h1>
+
+
 
 <form>
     <p>
-        Filtrar por titulo: <input type="text" asp-for="searchstring" />
+        FILTRAR: <input type="text" asp-for="searchstring" />
+        <select asp-for="generoPelicula" asp-items="Model.genero"
+                style="width: 130px; height: 30px;">
+            <option value="">ALL</option>
+        </select>
         <input type="submit" value="Filtar">
-    <p>
+
+<p>
 
 </form>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Crear nuevo</a>
 </p>
 <table class="table">
     <thead>
